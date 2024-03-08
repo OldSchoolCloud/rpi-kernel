@@ -5,7 +5,6 @@ services:
       context: .
       args:
         VERSION: stable_20240124
-        KERNEL: kernel8
     volumes:
       - ./output:/output
     command:
