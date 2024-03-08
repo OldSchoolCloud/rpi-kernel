@@ -7,8 +7,8 @@
     {
       "customType": "regex",
       "fileMatch": [ "(^|/)\\docker-compose.yaml" ],
-      "datasourceTemplate": "git-tags",
-      "depNameTemplate": "https://github.com/raspberrypi/linux",
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "raspberrypi/linux",
       "matchStrings": [
         "VERSION: (?<currentValue>.*?)\\s"
       ],
