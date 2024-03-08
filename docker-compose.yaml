@@ -1,8 +1,14 @@
-version: '3.8'
 services:
   dev:
     build:
       dockerfile: Dockerfile
       context: .
+      args:
+        VERSION: stable_20240124
+        KERNEL: kernel8
     volumes:
-      - ./bin:/opt/bin
+      - ./output:/output
+    command:
+      - bash
+      - -c
+      - "cp *.* /output && rm /output/build_kernel.sh"
