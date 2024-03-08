@@ -6,7 +6,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [ "(^|/)\\docker-compose.yaml" ],
+      "fileMatch": [ "^docker-compose\.yaml$" ],
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "raspberrypi/linux",
       "matchStrings": [
