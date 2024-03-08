@@ -27,5 +27,6 @@ You can run the apt repository using:
 docker compose up --build apt
 ```
 
-NOTE: Security is considered, this is only meant to run in a local
-environment with limited network connectivity.
+NOTE: The apt repository is only a proof of concept meant to be run in a local environment
+with limited network connectivity. Before using it on public networks security,
+please review configuration, especially for security.
