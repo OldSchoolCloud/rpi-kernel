@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  dev:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - ./bin:/opt/bin
