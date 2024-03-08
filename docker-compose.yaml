@@ -3,8 +3,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      args:
-        VERSION: stable_20240124
     volumes:
       - ./output:/output
     command:

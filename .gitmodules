@@ -1,0 +1,3 @@
+[submodule "upstream-kernel"]
+	path = upstream-kernel
+	url = https://github.com/raspberrypi/linux

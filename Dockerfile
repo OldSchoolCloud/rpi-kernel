@@ -1,8 +1,4 @@
 FROM ubuntu:22.04
-ARG VERSION=stable_20240124
-ENV VERSION=$VERSION
-
-RUN echo $VERSION
 
 WORKDIR /opt/kernel
 RUN apt-get update \
@@ -15,7 +11,7 @@ RUN apt-get update \
     rsync cpio \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone --depth 1 --branch $VERSION https://github.com/raspberrypi/linux
+COPY upstream-kernel /opt/kernel/linux
 COPY build_kernel.sh .
 
 RUN ./build_kernel.sh
