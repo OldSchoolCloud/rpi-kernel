@@ -3,7 +3,17 @@
   "extends": [
     "config:recommended"
   ],
-  "git-submodules": {
-    "enabled": true
-  }
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [ "(^|/)\\docker-compose.yaml" ],
+      "datasourceTemplate": "git-tags",
+      "depNameTemplate": "https://github.com/raspberrypi/linux",
+      "matchStrings": [
+        "VERSION: (?<currentValue>.*?)\\s"
+      ],
+      "versioningTemplate": "regex:^stable_(?<major>\\d{8})?$",
+      "depTypeTemplate": "dependencies"
+    }
+  ]
 }
