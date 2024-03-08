@@ -1,3 +1,0 @@
-[submodule "upstream-kernel"]
-	path = upstream-kernel
-	url = git@github.com:raspberrypi/linux.git#stable_20231123
