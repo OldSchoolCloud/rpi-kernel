@@ -3,11 +3,21 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+      target: BUILDER
       args:
         VERSION: stable_20240124
     volumes:
-      - ./output:/output
+      - ./debs:/output
     command:
       - bash
       - -c
-      - "cp *.* /output && rm /output/build_kernel.sh"
+      - "cp *.* /output && rm /output/*.sh && ./update-debs-index.sh"
+  apt:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: APT
+    ports:
+      - "8000:80"
+    volumes:
+      - ./debs:/usr/local/apache2/htdocs/debs

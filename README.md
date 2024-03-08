@@ -9,9 +9,10 @@ It builds the kernel using `bcm2711_defconfig` to be used for RPI4. Improvement 
 
 It keeps track of the upstream kernel using github tags, hoping it will continue to use `stable_XXXXXXXX` format.
 
-## How to run
+## How to build the kernel
 
-This command will build the kernel .deb packages and save them in the output directory. 
+This command will build the kernel .deb packages and save them in the `debs` directory.
+It will also generate the `Packages.gz` file to run the apt repository using apache.
 
 ```bash
 docker compose run --build --rm builder
@@ -19,3 +20,12 @@ docker compose run --build --rm builder
 
 Once built the dockerfile will retain the .deb files in the image,
 subsequent builds will use the cache and won't recompile the kernel.
+
+You can run the apt repository using:
+
+```bash
+docker compose up --build apt
+```
+
+NOTE: Security is considered, this is only meant to run in a local
+environment with limited network connectivity.

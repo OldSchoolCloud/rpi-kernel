@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.04 as BUILDER
 ARG VERSION
 ENV VERSION=$VERSION
 
@@ -17,3 +17,14 @@ RUN git clone --depth 1 --branch $VERSION https://github.com/raspberrypi/linux
 COPY build_kernel.sh .
 
 RUN ./build_kernel.sh
+COPY update-debs-index.sh .
+
+FROM httpd:2 as APT
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    dpkg-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /usr/local/apache2/htdocs/debs
+COPY update-debs-index.sh /bin/update-debs.sh
