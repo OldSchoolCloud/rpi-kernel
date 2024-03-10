@@ -15,9 +15,13 @@ RUN apt-get update \
 
 RUN git clone --depth 1 --branch $VERSION https://github.com/raspberrypi/linux
 COPY build_kernel.sh .
+# Make sure this becomes executable
+RUN chmod ugo+x ./build_kernel.sh
 
 RUN ./build_kernel.sh
 COPY update-debs-index.sh .
+# Make sure this becomes executable
+RUN chmod ugo+x ./update-debs-index.sh
 
 FROM httpd:2 as APT
 
