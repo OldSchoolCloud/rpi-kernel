@@ -1,5 +1,7 @@
 # Raspberry PI kernel build container
 
+[![stability-wip](https://img.shields.io/badge/stability-wip-lightgrey.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#work-in-progress)
+
 A small container to build the kernel using CONFIG_ARM64_VA_BITS_48 solving the issues
 related to Google's tcmalloc incompatibility.
 
@@ -30,3 +32,10 @@ docker compose up --build apt
 NOTE: The apt repository is only a proof of concept meant to be run in a local environment
 with limited network connectivity. Before using it on public networks security,
 please review configuration, especially for security.
+
+## What is missing
+
+The produced `deb` package is a PoC, it needs to:
+
+* Add kernel modules and overlays to the `deb` package, it only contains the kernel.
+* Make `deb` package handle versions better so that `apt` will handle the package updates
