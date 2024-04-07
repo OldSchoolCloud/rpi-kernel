@@ -25,6 +25,23 @@ done < "$filename"
 apt-get update
 apt-get source linux-image-rpi-v8
 
+# From
+#   https://wiki.debian.org/HowToCrossBuildAnOfficialDebianKernelPackage
+ARCH=arm64
+FEATURESET=rpi
+FLAVOUR=v8
+
+export $(dpkg-architecture -a$ARCH)
+export PATH=/usr/lib/ccache:$PATH
+# Build profiles is from: https://salsa.debian.org/kernel-team/linux/blob/master/debian/README.source
+export DEB_BUILD_PROFILES="cross nopython nodoc pkg.linux.notools"
+# Enable build in parallel
+export MAKEFLAGS="-j$(($(nproc)*2))"
+# Disable -dbg (debug) package is only possible when distribution="UNRELEASED" in debian/changelog
+export DEBIAN_KERNEL_DISABLE_DEBUG=
+[ "$(dpkg-parsechangelog --show-field Distribution)" = "UNRELEASED" ] &&
+  export DEBIAN_KERNEL_DISABLE_DEBUG=yes
+
 _source_dir=$(find .  -maxdepth 1 -type d -name "linux-*")
 cd $_source_dir
 
@@ -36,7 +53,7 @@ else
     exit 1
 fi
 
-make -f ./debian/rules.gen -j$(( $(nproc) * 2 )) binary-arch_arm64_rpi_v8
+make -f ./debian/rules.gen binary-arch_${ARCH}_${FEATURESET}_${FLAVOUR}
 mv /opt/kernel/*.deb /output
 
 # Update the package index
