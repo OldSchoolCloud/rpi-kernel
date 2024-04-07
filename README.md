@@ -7,9 +7,9 @@ related to Google's tcmalloc incompatibility.
 
 https://github.com/raspberrypi/linux/issues/4375
 
-It builds the kernel using `bcm2711_defconfig` to be used for RPI4. Improvement pull requests are welcome.
+It builds the kernel using the devault RPI4. Improvement pull requests are welcome.
 
-It keeps track of the upstream kernel using github tags, hoping it will continue to use `stable_XXXXXXXX` format.
+It builds the beb.
 
 ## How to build the kernel
 
@@ -35,7 +35,6 @@ please review configuration, especially for security.
 
 ## What is missing
 
-The produced `deb` package is a PoC, it needs to:
-
-* Add kernel modules and overlays to the `deb` package, it only contains the kernel.
-* Make `deb` package handle versions better so that `apt` will handle the package updates
+The produced `deb` package has the same name as the original package, which could create
+naming collisions. Ideally we'd like to change the LOCALVERSION so we can install this
+package without replacing the original one. (Reference discussion: https://github.com/RPi-Distro/repo/issues/368)

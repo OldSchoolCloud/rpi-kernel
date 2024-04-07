@@ -2,18 +2,5 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
-  ],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": [ "^docker-compose\\.yaml$" ],
-      "datasourceTemplate": "github-tags",
-      "depNameTemplate": "raspberrypi/linux",
-      "matchStrings": [
-        "VERSION: (?<currentValue>.*?)\\s"
-      ],
-      "versioningTemplate": "regex:^stable_(?<major>\\d{8})?$",
-      "depTypeTemplate": "dependencies"
-    }
   ]
 }

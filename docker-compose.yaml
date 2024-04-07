@@ -3,15 +3,17 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      target: BUILDER
+      target: BUILDER2
       args:
         VERSION: stable_20240124
+    privileged: true
     volumes:
       - ./debs:/output
+      - ./scripts:/opt/kernel/scripts
     command:
       - bash
       - -c
-      - "cp *.* /output && rm /output/*.sh && ./update-debs-index.sh"
+      - "scripts/build_kernel.sh"
   apt:
     build:
       dockerfile: Dockerfile

@@ -1,6 +1,4 @@
-FROM ubuntu:22.04 as BUILDER
-ARG VERSION
-ENV VERSION=$VERSION
+FROM python:3-bookworm as BUILDER2
 
 WORKDIR /opt/kernel
 RUN apt-get update \
@@ -10,18 +8,19 @@ RUN apt-get update \
     git bc bison flex libssl-dev \
     make libc6-dev libncurses5-dev \
     crossbuild-essential-arm64 dpkg-dev \
-    rsync cpio \
+    rsync cpio debhelper quilt dh-exec \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone --depth 1 --branch $VERSION https://github.com/raspberrypi/linux
-COPY build_kernel.sh .
-# Make sure this becomes executable
-RUN chmod ugo+x ./build_kernel.sh
+#TODO: Copy gpg key and remove trusted from the  file
+COPY raspi.list /etc/apt/sources.list.d/raspi.list
 
-RUN ./build_kernel.sh
-COPY update-debs-index.sh .
-# Make sure this becomes executable
-RUN chmod ugo+x ./update-debs-index.sh
+# Just to make sure it works
+RUN apt-get update \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY scripts ./scripts
+# Make sure scripts are executable
+RUN chmod ugo+x ./scripts/*.sh
 
 FROM httpd:2 as APT
 
@@ -31,4 +30,3 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /usr/local/apache2/htdocs/debs
-COPY update-debs-index.sh /bin/update-debs.sh
