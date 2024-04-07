@@ -4,8 +4,6 @@ services:
       dockerfile: Dockerfile
       context: .
       target: BUILDER2
-      args:
-        VERSION: stable_20240124
     privileged: true
     volumes:
       - ./debs:/output
