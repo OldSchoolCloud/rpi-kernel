@@ -31,7 +31,6 @@ cd $_source_dir
 if find ./debian/config/arm64/rpi/ -name "config.v8" -printf 1 -quit | grep -q 1
 then
     cp ../scripts/v8-config-overlay ./debian/config/arm64/rpi/config.v8
-    cat ./debian/config/arm64/rpi/config.v8
 else
     echo V8 Configuration file not found. Perhaps the source structure has changed?
     exit 1
