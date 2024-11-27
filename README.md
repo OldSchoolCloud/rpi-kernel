@@ -7,13 +7,23 @@ related to Google's tcmalloc incompatibility.
 
 https://github.com/raspberrypi/linux/issues/4375
 
-It builds the kernel using the devault RPI4. Improvement pull requests are welcome.
+It builds the kernel using the default RPI. Improvement pull requests are welcome.
 
-It builds the beb.
+It builds the deb.
 
 ## How to build the kernel
 
-This command will build the kernel .deb packages and save them in the `debs` directory.
+Edit the `docker-compose.yaml` to make sure you are building the kernel flavour you require (ie. `v8`, `2712`).  
+You can build multiple versions at the same time as illustrated in the following example:
+
+```yaml
+    command:
+      - bash
+      - -c
+      - "scripts/build_kernel.sh v8 ; scripts/build_kernel.sh 2712"
+```
+
+The following command will build the kernel .deb packages and save them in the `debs` directory creating a subdirectory for each kernel flavour.
 It will also generate the `Packages.gz` file to run the apt repository using apache.
 
 ```bash
@@ -30,7 +40,7 @@ docker compose up --build apt
 ```
 
 NOTE: The apt repository is only a proof of concept meant to be run in a local environment
-with limited network connectivity. Before using it on public networks security,
+with limited network connectivity. Before using it on public networks,
 please review configuration, especially for security.
 
 ## What is missing
