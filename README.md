@@ -13,17 +13,19 @@ It builds the deb.
 
 ## How to build the kernel
 
-Edit the `docker-compose.yaml` to make sure you are building the kernel flavour you require (ie. `v8`, `2712`).  
-You can build multiple versions at the same time as illustrated in the following example:
+By default, the script will build all supported kernel flavours (ie. `v8`, `2712`)
+Edit the `docker-compose.yaml` if you want to override and select the kernel flavours to build.  
+
+For example:
 
 ```yaml
     command:
       - bash
       - -c
-      - "scripts/build_kernel.sh v8 ; scripts/build_kernel.sh 2712"
+      - "scripts/build_kernel.sh v8"
 ```
 
-The following command will build the kernel .deb packages and save them in the `debs` directory creating a subdirectory for each kernel flavour.
+The following command will build the kernel .deb packages and save them in the `debs` directory.
 It will also generate the `Packages.gz` file to run the apt repository using apache.
 
 ```bash
