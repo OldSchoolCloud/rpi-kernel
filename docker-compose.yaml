@@ -11,7 +11,7 @@ services:
     command:
       - bash
       - -c
-      - "scripts/build_kernel.sh"
+      - "/opt/kernel/scripts/build_kernel.sh"
   apt:
     build:
       dockerfile: Dockerfile
