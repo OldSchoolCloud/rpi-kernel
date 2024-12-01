@@ -76,7 +76,7 @@ build_kernel() {
       echo "$flavour" Configuration file not found. Perhaps the source structure has changed?
   fi
 
-  mv ./*.deb /output
+  mv *.deb /output
 
 }
 
