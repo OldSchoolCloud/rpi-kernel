@@ -28,6 +28,7 @@ build_kernel() {
   flavour="$1"
 
   echo "Building for kernel flavour: $flavour"
+  pwd
 
   apt-cache depends linux-image-rpi-"$flavour" | grep Depends: > deb.list
 
@@ -68,6 +69,7 @@ build_kernel() {
 
   if find ./debian/config/arm64/rpi/ -name "config.$flavour" -printf 1 -quit | grep -q 1
   then
+      pwd
       cp ../scripts/"$flavour"-config-overlay ./debian/config/arm64/rpi/config."$flavour"
       make -f ./debian/rules.gen binary-arch_"$ARCH"_"$FEATURESET"_"$flavour"
   else
