@@ -91,3 +91,5 @@ done
 # Update the package index
 cd /output || exit 1
 dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
+
+sleep 2m
