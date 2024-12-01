@@ -70,13 +70,13 @@ build_kernel() {
   if find ./"$_source_dir"/debian/config/arm64/rpi/ -name "config.$flavour" -printf 1 -quit | grep -q 1
   then
       pwd
-      cp /opt/kernel/scripts/"$flavour"-config-overlay ./"$_source_dir"/debian/config/arm64/rpi/config."$flavour"
+      cp ./scripts/"$flavour"-config-overlay ./"$_source_dir"/debian/config/arm64/rpi/config."$flavour"
       make -f ./"$_source_dir"/debian/rules.gen binary-arch_"$ARCH"_"$FEATURESET"_"$flavour"
   else
       echo "$flavour" Configuration file not found. Perhaps the source structure has changed?
   fi
 
-  mv /opt/kernel/*.deb /output
+  mv ./*.deb /output
 
 }
 
