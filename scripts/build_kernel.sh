@@ -66,8 +66,8 @@ build_kernel() {
   [ "$(dpkg-parsechangelog --show-field Distribution)" = "UNRELEASED" ] &&
     export DEBIAN_KERNEL_DISABLE_DEBUG=yes
     
-  set CONFIG_SITE=/etc/dpkg-cross/cross-config.arm64
-  set DEB_BUILD_OPTIONS=nocheck
+  export CONFIG_SITE=/etc/dpkg-cross/cross-config.arm64
+  export DEB_BUILD_OPTIONS=nocheck
   
   _source_dir=$(find .  -maxdepth 1 -type d -name "linux-*")
   cd "$_source_dir" || return 1
