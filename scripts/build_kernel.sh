@@ -65,13 +65,13 @@ build_kernel() {
     export DEBIAN_KERNEL_DISABLE_DEBUG=yes
 
   _source_dir=$(find .  -maxdepth 1 -type d -name "linux-*")
-  cd "$_source_dir" || return 1
+  # cd "$_source_dir" || return 1
 
-  if find ./debian/config/arm64/rpi/ -name "config.$flavour" -printf 1 -quit | grep -q 1
+  if find "$_source_dir"/debian/config/arm64/rpi/ -name "config.$flavour" -printf 1 -quit | grep -q 1
   then
       pwd
-      cp /opt/kernel/scripts/"$flavour"-config-overlay ./debian/config/arm64/rpi/config."$flavour"
-      make -f ./debian/rules.gen binary-arch_"$ARCH"_"$FEATURESET"_"$flavour"
+      cp /opt/kernel/scripts/"$flavour"-config-overlay "$_source_dir"/debian/config/arm64/rpi/config."$flavour"
+      make -f "$_source_dir"/debian/rules.gen binary-arch_"$ARCH"_"$FEATURESET"_"$flavour"
   else
       echo "$flavour" Configuration file not found. Perhaps the source structure has changed?
   fi
