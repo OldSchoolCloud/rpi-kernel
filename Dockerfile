@@ -3,7 +3,7 @@ FROM python:3-bookworm as BUILDER2
 WORKDIR /opt/kernel
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    dpkg-cross build-essential gcc \
+    build-essential gcc \
     ca-certificates kmod \
     git bc bison flex libssl-dev \
     make libc6-dev libncurses5-dev \
