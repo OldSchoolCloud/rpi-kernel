@@ -29,8 +29,6 @@ build_kernel() {
 
   echo "Building for kernel flavour: $flavour"
   pwd
-  cd /opt/kernel
-  pwd
 
   apt-cache depends linux-image-rpi-"$flavour" | grep Depends: > deb.list
 
@@ -65,8 +63,6 @@ build_kernel() {
   export DEBIAN_KERNEL_DISABLE_DEBUG=
   [ "$(dpkg-parsechangelog --show-field Distribution)" = "UNRELEASED" ] &&
     export DEBIAN_KERNEL_DISABLE_DEBUG=yes
-    
-  export CROSS_COMPILE=aarch64-linux-gnu-
   
   _source_dir=$(find .  -maxdepth 1 -type d -name "linux-*")
   cd "$_source_dir" || return 1
